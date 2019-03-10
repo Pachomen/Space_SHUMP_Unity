@@ -76,6 +76,9 @@ public class Main : MonoBehaviour {
     public void Restart() {
         SceneManager.LoadScene("_Scene_0");
     }
+
+
+
     ///<summary>
     ///Funcion statica que obtiene  Wepondefintion de WEAP-DICT static protected del Main class
     ///</summary>

@@ -11,8 +11,6 @@ public class Hero : MonoBehaviour {
     public float rollMult = -45;
     public float pitchMult = 30;
     public float gameRestartDelay = 2f;
-    public GameObject projectilePref;
-    public float projectileSpeed = 40;
     public Weapon[] weapons;
 
     [Header("Set Dynamically")]
@@ -46,10 +44,6 @@ public class Hero : MonoBehaviour {
         //Rotar la nave para hacerlo mas dinamico
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 
-        //Deja que la nave pueda disparar
-        //if (Input.GetKeyDown(KeyCode.Space)) {
-        //    TempFire();
-        //}
         //Ahora se una fireDelegate para disparar el arma
         //Primero, asegurarse que el boton de espacio es presionado o tambien llamado: Axis("Jump")
         //Luego se asegura que fireDelegate no es nulo para evitar errores
@@ -88,22 +82,9 @@ public class Hero : MonoBehaviour {
         }
     }
 
-    //Revisar
-    void TempFire() {
-        GameObject projGO = Instantiate<GameObject>(projectilePref);
-        projGO.transform.position = transform.position;
-        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
-        //rigidB.velocity = Vector3.up * projectileSpeed;
-        Projectile proj = projGO.GetComponent<Projectile>();
-        proj.type = WeaponType.blaster;
-        float tSpeed = Main.GetWeaponDefiniton(proj.type).velocity;
-        rigidB.velocity = Vector3.up * tSpeed;
-    }
-
     private void OnTriggerEnter(Collider other){
         Transform rootT = other.gameObject.transform.root;
         GameObject go = rootT.gameObject;
-        //print("Triggered: " + go.name);
         //Estar seguro si no es el mismo Objeto que la ves pasada
         if (go == lastTriggerGo) return;
         lastTriggerGo = go;
